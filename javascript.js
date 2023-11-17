@@ -31,6 +31,7 @@ function getComputerChoice(){
 function game(playerSelection1, comp){ // this runs one game and handles all comparisons
     if(comp === playerSelection1){
         tieP = true;
+        result.textContent = 'Tie!';
     }
     else if((playerSelection1 === 'scissors' && comp === 'paper') || (comp === 'scissors' && playerSelection1 === 'paper')){
         let y;
@@ -41,7 +42,7 @@ function game(playerSelection1, comp){ // this runs one game and handles all com
         else{
             y = 'You lose! ';
         }
-        console.log(y + z);
+        result.textContent = y + z;
     }
 
     else if((playerSelection1 === 'rock' && comp === 'paper') || (comp === 'rock' && playerSelection1 === 'paper')){
@@ -53,7 +54,7 @@ function game(playerSelection1, comp){ // this runs one game and handles all com
         else{
             y = 'You lose! ';
         }
-        console.log(y + z);
+        result.textContent = y + z;
     }
 
     else if((playerSelection1 === 'scissors' && comp === 'rock') || (comp === 'scissors' && playerSelection1 === 'rock')){
@@ -67,41 +68,101 @@ function game(playerSelection1, comp){ // this runs one game and handles all com
             y = 'You lose! ';
             variable = false;
         }
-        console.log(y + z);
+        result.textContent = y + z;
     }
 }
 
-function fullGame(){
-    while(userP < 5 && compP < 5){
-        let playerSelection2 = prompt('Rock, Paper, Scissors, Shoot!').toLowerCase();
+function fullGame(input){
+    // while(userP < 5 && compP < 5){
+        // let input = prompt('Rock, Paper, Scissors, Shoot!').toLowerCase();
         getComputerChoice();
 
-        game(playerSelection2, comp1);
+        game(input, comp1);
         if(variable && !tieP){
             ++userP;
+            play.textContent = userP;
         }
         else if (tieP){
             ++userP;
+            play.textContent = userP;
             ++compP;
+            cpp.textContent = compP;
         }
         else{
             ++compP;
+            cpp.textContent = compP;
         }
         variable = false;
         tieP = false;
 
-        console.log("your score: " + userP);
-        console.log("comp score: " + compP);
-    }
+        // console.log("your score: " + userP);
+        // console.log("comp score: " + compP);
+    // }
 }
 
-fullGame();
-if(userP === 5){
-    console.log("Congrats");
-}
-else{
-    console.log("u lose");
+// fullGame();
+// if(userP === 5){
+//     console.log("Congrats");
+// }
+// else{
+//     console.log("u lose");
+// }
+
+function playrock(){
+    fullGame('rock');
 }
 
+function playscissors(){
+    fullGame('scissors');
+}
+
+function playpaper(){
+    fullGame('paper');
+}
+const rock = document.createElement('button');
+rock.textContent = "ROCK";
+const sci = document.createElement('button');
+sci.textContent = "SCISSORS";
+const pap = document.createElement('button');
+pap.textContent = "PAPER";
+
+rock.addEventListener('click', playrock);
+sci.addEventListener('click', playscissors);
+pap.addEventListener('click', playpaper);
+// rock.onclick = fullGame('paper');
+
+const btndiv = document.createElement('div');
+btndiv.appendChild(rock);
+btndiv.appendChild(sci);
+btndiv.appendChild(pap);
+
+// document.body.appendChild(btndiv);
+
+
+
+const result = document.createElement('div');
+
+
+const play = document.createElement('div');
+play.textContent = userP;
+const cpp = document.createElement('div');
+cpp.textContent = compP;
+
+const containscrs = document.createElement('div');
+containscrs.appendChild(play);
+containscrs.appendChild(cpp);
+
+
+const maincontain = document.createElement('div');
+maincontain.appendChild(containscrs);
+maincontain.appendChild(result);
+maincontain.appendChild(btndiv);
+
+document.body.appendChild(maincontain);
+// const hm = document.createElement('div');
+// hm.textContent = "test test";
+
+// document.body.append(hm);
+// maincontain.textContent = "ello";
 userP = 0;
 compP = 0;
